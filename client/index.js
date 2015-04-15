@@ -16,19 +16,29 @@ function init(){
   tasks.on('child_removed', taskRemoved);
   $('#todos').on('click', '.delete', deleteTask);
   $('#todos').on('change', 'input[type="checkbox"]', toggleComplete);
+  tasks.on('child_changed', taskChanged);
+}
+
+function taskChanged(snapshot){
+  var key = snapshot.key();
+  var task = snapshot.val();
+  var $tr = $('tr[data-key=' + key + ']');
+  var checked = task.isComplete ? 'checked' : '""';
+  $tr.removeClass().addClass(checked);
+  $tr.find('input[type=checkout]').attr('checked', !!checked);
 }
 
 function toggleComplete(){
   var key = $(this).closest('tr').data('key');
   var unchecked = !!$(this).attr('checked');
-  if (!unchecked){
-    $(this).prop('checked', true);
-    $(this).parent().parent().addClass('checked');
-  }
-  else{
-    $(this).prop('checked', false);
-    $(this).parent().parent().removeClass('checked');
-  }
+  // if (!unchecked){
+  //   $(this).prop('checked', true);
+  //   $(this).parent().parent().addClass('checked');
+  // }
+  // else{
+  //   $(this).prop('checked', false);
+  //   $(this).parent().parent().removeClass('checked');
+  // }
   tasks.child(key).update({isComplete: !unchecked});
 }
 
