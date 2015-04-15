@@ -12,7 +12,8 @@ function init(){
   tasks = root.child('tasks');
   user.on('value', userChanged);
   $('#create-task').click(createTask);
-
+  tasks.on('child_added', taskAdded);
+  $('#todos').on('click', '.delete', deleteTask);
 }
 
 function setName(){
@@ -42,4 +43,16 @@ function createTask(){
     createdAt: createdAt
   };
   tasks.push(task);
+}
+
+function taskAdded(snapshot){
+  var task = snapshot.val();
+  var key = snapshot.key();
+  console.log(key);
+  var tr = '<tr data-key' + key + '><td><button class="delete">&times;</button></td><td><input type="checkbox" '+ ((task.isComplete) ? "checked" : "") + '></td><td>' + task.title + '</td><td>' + moment(task.dueDate).format('YYYY-MM-DD') + '</td><td>' + task.priority + '</td><td>' + moment(task.createdAt).format('YYYY-MM-DD') + '</td></tr>';
+  $('#todos > tbody').append(tr);
+}
+
+function deleteTask(){
+  
 }

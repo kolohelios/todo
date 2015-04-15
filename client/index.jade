@@ -20,7 +20,19 @@ html
         option Low
       button#create-task Create Task
       
+    table#todos
+      thead
+        tr
+          th Delete
+          th Is Complete?
+          th Title
+          th Due Date
+          th Priority
+          th Created At
+      tbody
+      
     script(src='/vendor/lodash/lodash.min.js')
+    script(src='/vendor/moment/min/moment.min.js')
     script(src='/vendor/firebase/firebase.js')
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src=isProd ? '/index.min.js' : '/index.js')
