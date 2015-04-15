@@ -7,8 +7,19 @@ html
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
   body
-    h1#title To Do
-
+    h1#header Todo
+    input#name(type='text', autofocus=true)
+    button#set-name Set name
+    
+    #controls
+      input#title(type='text', placeholder='Title')
+      input#due-date(type='date')
+      select#priority
+        option High
+        option Medium
+        option Low
+      button#create-task Create Task
+      
     script(src='/vendor/lodash/lodash.min.js')
     script(src='/vendor/firebase/firebase.js')
     script(src='/vendor/jquery/dist/jquery.min.js')
