@@ -1,14 +1,15 @@
 doctype html
 html
   head
-    meta(charset='utf-8')      
-    title Apollo
+    meta(charset='utf-8')
+    title To Do
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
   body
-    img#apollo(src='/assets/apollo.jpg')
-    h1#title Apollo
+    h1#title To Do
 
     script(src='/vendor/lodash/lodash.min.js')
+    script(src='/vendor/firebase/firebase.js')
+    script(src='/vendor/jquery/dist/jquery.min.js')
     script(src=isProd ? '/index.min.js' : '/index.js')
