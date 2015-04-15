@@ -15,6 +15,21 @@ function init(){
   tasks.on('child_added', taskAdded);
   tasks.on('child_removed', taskRemoved);
   $('#todos').on('click', '.delete', deleteTask);
+  $('#todos').on('change', 'input[type="checkbox"]', toggleComplete);
+}
+
+function toggleComplete(){
+  var key = $(this).closest('tr').data('key');
+  var unchecked = !!$(this).attr('checked');
+  if (!unchecked){
+    $(this).prop('checked', true);
+    $(this).parent().parent().addClass('checked');
+  }
+  else{
+    $(this).prop('checked', false);
+    $(this).parent().parent().removeClass('checked');
+  }
+  tasks.child(key).update({isComplete: !unchecked});
 }
 
 function setName(){
@@ -49,8 +64,8 @@ function createTask(){
 function taskAdded(snapshot){
   var task = snapshot.val();
   var key = snapshot.key();
-  console.log(key);
-  var tr = '<tr data-key=' + key + '><td><button class="delete">&times;</button></td><td><input type="checkbox" '+ ((task.isComplete) ? "checked" : "") + '></td><td>' + task.title + '</td><td>' + moment(task.dueDate).format('YYYY-MM-DD') + '</td><td>' + task.priority + '</td><td>' + moment(task.createdAt).format('YYYY-MM-DD') + '</td></tr>';
+  var checked = (task.isComplete) ? 'checked' : '""';
+  var tr = '<tr class=' + checked + ' data-key=' + key + '><td><button class="delete">&times;</button></td><td><input type="checkbox" ' + checked + '></td><td>' + task.title + '</td><td>' + moment(task.dueDate).format('YYYY-MM-DD') + '</td><td>' + task.priority + '</td><td>' + moment(task.createdAt).format('YYYY-MM-DD') + '</td></tr>';
   $('#todos > tbody').append(tr);
 }
 
